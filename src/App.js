@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState } from 'react';
+import SapperContext from './context'
+import createNulledBivariateArray from './utils/createNulledBivariateArray';
+import Game from './components/Game';
+import './styles/index.css';
 
-function App() {
+const App = () => {
+
+  const [board, setBoard] = useState(createNulledBivariateArray())
+  const [cells, setCells] = useState(createNulledBivariateArray())
+
+  const [bombs, setBombs] = useState(40)
+
+  const [firstCellX, setFirstCellX] = useState(null)
+  const [firstCellY, setFirstCellY] = useState(null)
+
+  const clickFunction = useRef(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SapperContext.Provider value={{
+
+      // states
+      board: board,
+      cells: cells,
+      bombs: bombs,
+      firstCellX: firstCellX,
+      firstCellY: firstCellY,
+
+      // setters
+      setBoard: setBoard,
+      setCells: setCells,
+      setBombsQuantity: setBombs,
+      setFirstCellX: setFirstCellX,
+      setFirstCellY: setFirstCellY,
+
+      // refs
+      // clickFunction: clickFunction,
+    }}>
+      <Game />
+    </SapperContext.Provider>
   );
 }
 

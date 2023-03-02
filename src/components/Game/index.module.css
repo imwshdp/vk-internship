@@ -1,0 +1,15 @@
+* {
+  margin: 0 auto;
+}
+
+.Wrapper {
+  width: fit-content;
+
+  /* background-color: lightgray; */
+  background-color: whitesmoke;
+  border: 1px solid var(--dark);
+}
+
+.Wrapper>* {
+  margin: 10px;
+}

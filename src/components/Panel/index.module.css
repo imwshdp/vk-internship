@@ -1,0 +1,14 @@
+.Panel {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+  width: calc(var(--cellWidth) * 16);
+  box-sizing: content-box;
+  border: 1px solid red;
+}
+
+.Panel>* {
+  margin: 10px;
+  border: 1px solid blue;
+}
