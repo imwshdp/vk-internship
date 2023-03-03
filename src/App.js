@@ -1,20 +1,24 @@
 import React, { useRef, useState } from 'react';
 import SapperContext from './context'
-import createNulledBivariateArray from './utils/createNulledBivariateArray';
+import createFilledState from './utils/createFilledState';
 import Game from './components/Game';
 import './styles/index.css';
 
 const App = () => {
 
-  const [board, setBoard] = useState(createNulledBivariateArray())
-  const [cells, setCells] = useState(createNulledBivariateArray())
+  const [board, setBoard] = useState(createFilledState(0))
+  const [cells, setCells] = useState(createFilledState(0))
 
-  const [bombs, setBombs] = useState(40)
+  const [bombs, setBombs] = useState(253)
+  const [userBombs, setUserBombs] = useState(253)
 
+  const [isFirstClick, setIsFirstClick] = useState(null)
   const [firstCellX, setFirstCellX] = useState(null)
   const [firstCellY, setFirstCellY] = useState(null)
 
-  const clickFunction = useRef(null)
+  const [isGameEnded, setIsGameEnded] = useState(false)
+
+  const timer = useRef({})
 
   return (
     <SapperContext.Provider value={{
@@ -23,18 +27,25 @@ const App = () => {
       board: board,
       cells: cells,
       bombs: bombs,
+      userBombs: userBombs,
+
+      isFirstClick: isFirstClick,
       firstCellX: firstCellX,
       firstCellY: firstCellY,
+
+      isGameEnded: isGameEnded,
+      timer: timer,
 
       // setters
       setBoard: setBoard,
       setCells: setCells,
-      setBombsQuantity: setBombs,
+      setUserBombs: setUserBombs,
+
+      setIsFirstClick: setIsFirstClick,
       setFirstCellX: setFirstCellX,
       setFirstCellY: setFirstCellY,
 
-      // refs
-      // clickFunction: clickFunction,
+      setIsGameEnded: setIsGameEnded,
     }}>
       <Game />
     </SapperContext.Provider>

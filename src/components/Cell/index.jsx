@@ -1,123 +1,59 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SapperContext from '../../context';
-import BOMB from '../../utils/bombValue';
+import { setBombs } from '../../context/actions/bombs/setBombs';
+import BOMB from '../../context/actions/bombs/bombValue';
 import css from './index.module.css';
+import { updateCellsState } from '../../context/functions/cells/updateCellState';
+import { openNearestCells } from '../../context/functions/cells/openNearestCells';
+import { setEndGame } from '../../context/actions/game/setEndGame';
 
-const Cell = ({ x, y, firstClick, setFirstClick }) => {
+const Cell = ({ x, y }) => {
 
   // context data
   let {
-    board,
+    board, setBoard,
     cells, setCells,
+    bombs,
+    setUserBombs,
+    isFirstClick, setIsFirstClick,
     firstCellX, setFirstCellX,
     firstCellY, setFirstCellY,
-    clickFunction,
+    setIsGameEnded,
   } = useContext(SapperContext)
 
-  // cell state
-  // 0 - closed
-  // 1 - opened
-  // 2 - flagged
-  // 3 - questioned (?)
+  // cell state (0 - closed, 1 - opened, 2 - flagged, 3 - questioned)
   const cellState = cells[x][y]
 
-  // get cell from board
-  const getCell = (x, y) => board[x][y]
-
-  // open near empty cells after opening one cell
-  const openNearestCells = (x, y) => {
-
-    // get copy of state
-    let arr = JSON.stringify(cells)
-    arr = JSON.parse(arr)
-
-    // initialize stack and candidates list
-    const stack = [{ x, y }]
-    let candidates
-
-    // passing near cells
-    while (stack.length !== 0) {
-
-      // pop element
-      const element = stack.pop()
-      const curX = element.x, curY = element.y
-
-      // open cell if cell doesn't contains bomb
-      if (getCell(curX, curY) !== BOMB) {
-        arr[curX][curY] = 1
-
-        // break if cell isn't empty
-        if (getCell(curX, curY) !== 0) {
-          break;
-        }
-      }
-
-      // collect near cells
-      candidates = []
-      for (let i = -1; i < 2; i++) {
-        for (let j = -1; j < 2; j++) {
-
-          if (i === 0 && j === 0) {
-            continue;
-          }
-
-          // push nearest cell to candidates list if cell exists
-          if (
-            curX + i >= 0 &&
-            curX + i < 16 &&
-            curY + j >= 0 &&
-            curY + j < 16
-          ) {
-            candidates.push({ x: curX + i, y: curY + j })
-          }
-        }
-      }
-
-      // check candidates
-      for (let candidate of candidates) {
-
-        // if cell is empty and closed
-        if (getCell(candidate.x, candidate.y) === 0 && arr[candidate.x][candidate.y] === 0) {
-
-          // push cell to stack
-          stack.push({ ...candidate })
-
-        } else {
-
-          // else open cell if it doesn't contains bomb
-          if (getCell(candidate.x, candidate.y) !== BOMB)
-            arr[candidate.x][candidate.y] = 1
-        }
-      }
-    }
-
-    // refresh state
-    setCells(arr)
+  // open near empty cells after opening cell
+  const openCells = (x, y) => {
+    setCells(openNearestCells(x, y, cells, board))
   }
 
-  const configureNewCellsState = (x, y, newState) => {
-    let arr = JSON.stringify(cells)
-    arr = JSON.parse(arr)
-
-    arr[x][y] = newState
-    setCells(arr)
+  // update one cell state
+  const setCellState = (x, y, value) => {
+    setCells(updateCellsState(x, y, cells, value))
   }
 
   const leftClick = (e) => {
 
-    if (!firstClick) {
-      setFirstClick(true)
-
+    // if first click => refresh states
+    if (!isFirstClick) {
       setFirstCellX(x)
       setFirstCellY(y)
 
+      // add bombs to board and refresh board state
+      setBoard(setBombs(x, y, bombs))
+
+      setIsFirstClick(true)
     } else {
+
+      // else handle click
       if (board[x][y] === BOMB) {
-        console.log("тык по бомбе!")
-        // ENDGAME
+        // end game after bomb opening
+        setEndGame(setIsGameEnded, setCells, cells)
       } else {
-        // open near empty cells
-        openNearestCells(x, y)
+        // open nearest cells
+        openCells(x, y)
       }
     }
   }
@@ -126,23 +62,28 @@ const Cell = ({ x, y, firstClick, setFirstClick }) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (cellState === 0) { configureNewCellsState(x, y, 2) }
-    if (cellState === 2) { configureNewCellsState(x, y, 3) }
-    if (cellState === 3) { configureNewCellsState(x, y, 0) }
-  }
-
-  const doubleClick = () => {
-    console.log(firstCellX, firstCellY)
-
-    if (firstClick && x === firstCellX && y === firstCellY) {
-      openNearestCells(firstCellX, firstCellY)
+    if (cellState === 0) {
+      setCellState(x, y, 2)
+      setUserBombs(prev => prev - 1)
     }
+    if (cellState === 2) {
+      setCellState(x, y, 3)
+      setUserBombs(prev => prev + 1)
+    }
+    if (cellState === 3) { setCellState(x, y, 0) }
   }
 
   useEffect(() => {
-    if (!firstClick) return
-    doubleClick()
-  }, [])
+    // if first click is registered
+    if (isFirstClick && x === firstCellX && y === firstCellY) {
+      openCells(firstCellX, firstCellY)
+
+      // null coords states
+      setFirstCellX(null)
+      setFirstCellY(null)
+    }
+
+  }, [isFirstClick])
 
   return (
     <div
@@ -154,7 +95,7 @@ const Cell = ({ x, y, firstClick, setFirstClick }) => {
     >
       {cellState === 0 ? board[x][y] : ""}
       {cellState === 1 && board[x][y]}
-      {cellState === 2 && 'Ф'}
+      {cellState === 2 && 'F'}
       {cellState === 3 && '?'}
     </div>
   );

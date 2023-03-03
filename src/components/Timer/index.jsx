@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import SapperContext from '../../context';
 import css from './index.module.css';
 
 const Timer = () => {
 
+  // context data
+  let { isFirstClick, isGameEnded, timer } = useContext(SapperContext)
+
   // timer
-  const timer = useRef({})
   const [time, setTime] = useState(0)
 
   function incrementTimer() {
@@ -15,9 +18,26 @@ const Timer = () => {
     timer.current = setInterval(incrementTimer, 1000);
   }
 
+  function stopTimer() {
+    clearInterval(timer.current)
+  }
+
   useEffect(() => {
-    startTimer();
-  }, [])
+    // if game ended
+    if (isGameEnded) {
+      stopTimer()
+    }
+
+    // if first click is registered
+    if (isFirstClick === true && !isGameEnded) {
+      startTimer();
+    }
+
+    // if new game statred
+    if (!isGameEnded && isFirstClick === null) {
+      setTime(0)
+    }
+  }, [isFirstClick, isGameEnded])
 
   return (
     <div>

@@ -7,12 +7,12 @@ import css from './index.module.css';
 const Panel = () => {
 
   // context data
-  let { bombs, setBombs } = useContext(SapperContext)
+  let { userBombs } = useContext(SapperContext)
 
   return (
     <section className={css.Panel}>
       <div className={css.BombsCounter}>
-        {bombs}
+        {userBombs}
       </div>
 
       <div className={css.ReloadGame}>
