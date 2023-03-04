@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+
 import SapperContext from '../../context';
-import boardSize from '../../context/actions/bombs/bombsQuantity';
-import BOMB from '../../context/actions/bombs/bombValue';
-import { checkIsGameEnded } from '../../context/functions/game/checkIsGameEnded';
-import createFilledState from '../../utils/createFilledState';
-import { getCopyOfState } from '../../utils/getCopyOfState';
+import { checkIsGameEnded } from '../../context/actions/game/checkIsGameEnded';
+
 import Cell from '../Cell';
 import css from './index.module.css';
 
@@ -16,11 +14,12 @@ const Board = () => {
     cells, setCells,
     bombs,
     isGameEnded, setIsGameEnded,
+    setIsWin,
     isFirstClick
   } = useContext(SapperContext)
 
   const gameEndCheck = () => {
-    checkIsGameEnded(board, cells, bombs, setIsGameEnded, setCells)
+    checkIsGameEnded(board, cells, bombs, setIsGameEnded, setCells, setIsWin)
   }
 
   useEffect(() => {

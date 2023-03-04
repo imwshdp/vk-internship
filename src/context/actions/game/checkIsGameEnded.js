@@ -1,9 +1,7 @@
-import createFilledState from "../../../utils/createFilledState"
-import { getCopyOfState } from "../../../utils/getCopyOfState"
-import boardSize from "../../actions/bombs/bombsQuantity"
 import BOMB from "../../actions/bombs/bombValue"
+import boardSize from "../../actions/bombs/bombsQuantity"
 
-export const checkIsGameEnded = (board, cells, bombs, setIsGameEnded, setCells) => {
+export const checkIsGameEnded = (board, cells, bombs, setIsGameEnded, setIsWin) => {
   let openedCellsCounter = 0
 
   for (let x = 0; x < boardSize; x++) {
@@ -20,12 +18,9 @@ export const checkIsGameEnded = (board, cells, bombs, setIsGameEnded, setCells) 
   }
 
   if (openedCellsCounter === (boardSize * boardSize - bombs)) {
-    setIsGameEnded(true)
-    console.log('win!!!')
 
-    // open all cells
-    let arr = getCopyOfState(cells)
-    arr = createFilledState(1)
-    setCells(arr)
+    // refresh state to winning status and end game
+    setIsGameEnded(true)
+    setIsWin(prev => !prev)
   }
 }

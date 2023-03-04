@@ -1,5 +1,5 @@
-import boardSize from './bombsQuantity';
 import BOMB from './bombValue';
+import boardSize from './bombsQuantity';
 import createFilledState from '../../../utils/createFilledState'
 
 const addHints = (array) => {

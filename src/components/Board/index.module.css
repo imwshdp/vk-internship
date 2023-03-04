@@ -1,12 +1,15 @@
 .Board {
-  display: block;
-
+  display: flex;
+  flex-flow: column nowrap;
   width: fit-content;
   height: fit-content;
 
-  border: 1px solid red;
+  border-top: 4px solid gray;
+  border-left: 4px solid gray;
+  border-right: 4px solid white;
+  border-bottom: 4px solid white;
 }
 
 .Row {
-  display: inline-block;
+  display: inline-flex;
 }

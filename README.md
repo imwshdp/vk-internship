@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Профильное задание. Стажировка VK
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Профильное задание на позицию "Фронтед-разработчик" для стажировки VK.
+Реализация игры "Сапер" на основе HTML, CSS и JavaScript
 
-## Available Scripts
+## Стек
+* `React` v18
+* `Node.js` v16.18.0
 
-In the project directory, you can run:
+## Используемые технологии
+* React Hooks
+* React Context
 
-### `npm start`
+## Реализованные требования к проекту
+* Поле игры размером 16 на 16 клеток, 40 мин на поле
+* На панели слева располагается счётчик оставшихся мин, справа - секундомер
+* Мины расставляются на поле случайным образом
+* Распределение мин происходит после первого открытия клетки пользователем, а следовательно первый клик никогда не будет происходить по мине
+* После открытия клетки ЛКМ открываются также все поля без мин поблизости
+* ПКМ ставит флажок, изменяющий счетчик количества оставшихся мин
+* Второе нажатие ПКМ изменяет флажок на знак вопроса, который не влияет на счетчик количества оставшихся мин
+* Нажатие на кнопку со смайликом перезапускает игру
+* Если пользователь нажимает ЛКМ в пределах поля, но не отпускает ЛКМ - смайлик сменяется на испуганный
+* В случае открытия пользователем клетки с миной - смайлик сменяется на грустный, а также раскрываются позиции местонахождения мин, успешно поставленные флажки остаются, а неверно поставленные сменяются зачеркнутой миной
+* В случае открытия пользователем всех клеток, не содержащих мин - смайлик примеряет солнцезащитные очки, а секундомер останавливается
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Локальный запуск проекта
+Запуск проекта на локальном сервере производится командой *npm start*

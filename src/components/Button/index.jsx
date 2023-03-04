@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
+
 import SapperContext from '../../context';
 import createFilledState from '../../utils/createFilledState';
+
+import './index.module.css'
 
 const Button = ({ children }) => {
 
@@ -9,21 +12,29 @@ const Button = ({ children }) => {
     setBoard,
     setCells,
     bombs,
+
     setUserBombs,
     setIsFirstClick,
     setFirstCellX,
     setFirstCellY,
     setIsGameEnded,
+    setIsWin,
+
     timer
   } = useContext(SapperContext)
 
+  // clear all states
   const newGame = () => {
     setBoard(createFilledState(0))
     setCells(createFilledState(0))
+
     setIsFirstClick(null)
     setFirstCellX(null)
     setFirstCellY(null)
+
     setIsGameEnded(false)
+    setIsWin(false)
+
     setUserBombs(bombs)
 
     clearInterval(timer.current)

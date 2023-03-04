@@ -2,13 +2,40 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
 
   width: calc(var(--cellWidth) * 16);
   box-sizing: content-box;
-  border: 1px solid red;
+  font-size: 3rem;
+
+  background-color: var(--lightgray);
+
+  border-top: 4px solid gray;
+  border-left: 4px solid gray;
+  border-right: 4px solid white;
+  border-bottom: 4px solid white;
 }
 
 .Panel>* {
+  display: flex;
+  height: fit-content;
+  min-height: 60px;
   margin: 10px;
-  border: 1px solid blue;
+}
+
+/* bombs counter and timer */
+.Panel>*:first-child,
+.Panel>*:last-child {
+  justify-content: end;
+  height: auto;
+  min-width: 90px;
+  padding: 0 5px;
+  background-color: rgba(0, 0, 0, 1);
+  border: 1px solid var(--dark)
+}
+
+.BombsCounter {
+  font-family: 'digitalFont', sans-serif;
+  font-size: larger;
+  color: red;
 }

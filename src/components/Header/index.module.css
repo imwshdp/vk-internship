@@ -1,0 +1,17 @@
+header {
+  width: 50vw;
+}
+
+@media screen and (max-width: 900px) {
+  header {
+    width: 700px;
+  }
+}
+
+header p:last-child {
+  margin-bottom: 1vw;
+}
+
+p {
+  margin-top: 1vw;
+}

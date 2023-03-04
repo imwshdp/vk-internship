@@ -1,0 +1,23 @@
+button {
+  background-color: var(--lightgray);
+
+  border-top: 4px solid white;
+  border-left: 4px solid white;
+  border-right: 4px solid gray;
+  border-bottom: 4px solid gray;
+
+  cursor: pointer;
+  transition: border .05s ease-in-out;
+}
+
+button:active {
+  border-width: 2px;
+  border-top: 6px solid gray;
+  border-left: 6px solid gray;
+
+  transition: border .05s ease-in-out;
+}
+
+button:active svg {
+  transform: translate(2px, 2px);
+}

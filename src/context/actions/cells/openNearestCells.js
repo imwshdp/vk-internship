@@ -1,5 +1,5 @@
-import boardSize from "../../actions/bombs/bombsQuantity"
 import BOMB from "../../actions/bombs/bombValue"
+import boardSize from "../../actions/bombs/bombsQuantity"
 import { getCopyOfState } from "../../../utils/getCopyOfState"
 
 export const openNearestCells = (x, y, cells, board) => {
