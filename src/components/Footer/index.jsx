@@ -7,7 +7,7 @@ const Footer = () => {
     <footer>
       <span>Стажировка <span className={css.VK}>VK</span>. Профильное задание на позицию "Фронтенд-разработчик".</span>
       <h2>
-        Репозиторий <a href='https://github.com/imwshdp/vk-internship'>GitHub</a>
+        <a href='https://github.com/imwshdp/vk-internship'>Репозиторий <span className={css.GitHub}>GitHub</span></a>
       </h2>
     </footer>
   );

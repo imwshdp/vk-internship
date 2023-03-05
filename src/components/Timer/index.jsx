@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import SapperContext from '../../context';
 
-import css from './index.module.css';
-
 const Timer = () => {
 
   // context data
@@ -42,7 +40,7 @@ const Timer = () => {
   }, [isFirstClick, isGameEnded])
 
   return (
-    <div className={css.Timer}>
+    <div>
       {time}
     </div>
   );

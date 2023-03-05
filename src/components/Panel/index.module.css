@@ -26,15 +26,16 @@
 /* bombs counter and timer */
 .Panel>*:first-child,
 .Panel>*:last-child {
+  display: flex;
   justify-content: end;
-  height: auto;
+
   min-width: 90px;
   padding: 0 5px;
-  background-color: rgba(0, 0, 0, 1);
-  border: 1px solid var(--dark)
-}
+  align-items: center;
 
-.BombsCounter {
+  background-color: rgba(0, 0, 0, 1);
+  border: 1px solid var(--dark);
+
   font-family: 'digitalFont', sans-serif;
   font-size: larger;
   color: red;
