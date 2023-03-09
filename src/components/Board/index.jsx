@@ -19,7 +19,7 @@ const Board = () => {
   } = useContext(SapperContext)
 
   const gameEndCheck = () => {
-    checkIsGameEnded(board, cells, bombs, setIsGameEnded, setCells, setIsWin)
+    checkIsGameEnded(board, cells, bombs, setIsGameEnded, setIsWin)
   }
 
   useEffect(() => {
