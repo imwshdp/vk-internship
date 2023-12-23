@@ -3,7 +3,7 @@
 Профильное задание на позицию "Фронтед-разработчик" для стажировки VK.
 Реализация игры "Сапер" на основе HTML, CSS и JavaScript
 
-Результат можно посмотреть [здесь](https://vk-internship-delta.vercel.app/).
+Результат можно посмотреть [здесь](https://vk-frontend-internship.vercel.app/).
 
 ## Стек
 * `React` v18
